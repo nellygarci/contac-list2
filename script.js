@@ -1,10 +1,5 @@
 // Definir las variables y matrices
-canatidadDeMinas = 0;
-valido = "n";
-let mina; 
-let ejeX;
-let ejeY;
-let minaCiclo = 0;
+
 let nroRegistro;
 let lista = new Array();
 
