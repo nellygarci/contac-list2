@@ -1,64 +1,181 @@
-// Definir las variables y matrices
 
+/* Funiona el ingreso, la modificación y la eliminación 
+falta por coloacrle el menú principal, 
+pero tengo que copiar el link ya que debo ver la clase de hoy 
+proximamente estará completo*/
+
+
+
+
+
+
+// Definir las variables y matrices
 let nroRegistro;
-let lista = new Array();
+let x;
+baseDatos = [];
+class Registro 
+          { constructor(id,nombre, apellidos,telefono,ubicacion,ciudad,dirección){
+             this.id = id;
+             this.nombre = nombre;
+             this.apellidos = apellidos;
+             this.telefono = telefono;
+             this.ubicacion = ubicacion;
+             this.ciudad = ciudad;
+             this.dirección = dirección;
+             }
+             
+          }
 
 //funcion para llenar la lista de datos
 const llenarLista = function (){
-    contadorMina = 0;
     nroRegistro = parseInt(prompt("Introduzca el Nro. de registros  a agregar"))
+    for ( x = 1; x <= nroRegistro; x++){
+       let id = x;
+       let nombre = prompt("Intrduzca Nombres: ", "Nelly") 
+       let apellidos = prompt("Intrduzca Apellidos: ", "García" ) 
+       let telefono = prompt("Intrduzca Telefono: ", "0992880146" ) 
+       let ubicacion = prompt("Intrduzca Ubicación: ", "Ecuador" ) 
+       let ciudad = prompt("Intrduzca ciudad: ", "Guayaquil" ) 
+       let dirección= prompt("Intrduzca dirección: ", "Alborada") 
+       
+        let nuevo = new Registro(id,nombre, apellidos,telefono,ubicacion,ciudad,dirección)
+        baseDatos.push(nuevo)
+        alert(`${nuevo.nombre}  agregado satisfactoriamente`)
+        
+       
+         
+           
+          }
+
+          
+          }
+          
+             
+
+
+         function  imprmirEncabezado  (){
+            document.write("********************************************************");
+            document.write("<br>")
+            document.write("       " +  "Registro de contacto");
+            document.write("<br>")
+            document.write("********************************************************");
+            document.write("<br>")
+            document.write("          " + "Id" + "Nombre      " + "Apellido    " + "Teléfono    " + "Ubicación   " + "Ciudad    " + "Dirección     ")
+            
+           } 
+     
+ 
     
 
-    
 
-  for ( let x = 0; x < nroRegistro; x++){
-      
-    for (i=0; i<6; i++){
-
-      }
-    let id = prompt("Intrduzca identificacion: " ) 
-    let nombres = prompt("Intrduzca Nombres: " ) 
-    let apellidos = prompt("Intrduzca Apellidos: " ) 
-    let telefono = prompt("Intrduzca Telefono: " ) 
-    let ubicacion = prompt("Intrduzca Ubicación: " ) 
-    let ciudad = prompt("Intrduzca ciudad: " ) 
-    let dirección= prompt("Intrduzca dirección: " ) 
-    let contenedor = id + nombres + apellidos + telefono + ciudad + ubicacion + dirección
-    let nuevaLongitud = lista.push(contenedor)   
-  
-
-     }
-      
-     console.log(lista)   
-    }
-
-
-    /* Funcion para imprimir la lista */
-     function imprimirLista (lista){
-         console.log(lista)
+    // Funcion para imprimir la lista 
+     function imprimirLista (baseDatos){
+         baseDatos.forEach(contacto => {
+         document.write("<br>")
+         document.write(contacto.id + "    "+ contacto.nombre + "    " + contacto.apellidos + "    " + contacto.telefono + "    " + contacto.ubicacion + "    " + contacto.ciudad + "    " + contacto.dirección);
+         document.write("<br>")
+         
+          });
      
        }
 
    /* funcion eliminar registro */
-   function eliminaRegistro(){
-    let nomEli = prompt("Intrduzca nombre del registro a eliminar: " ) 
-   let pos = lista.indexOf('nomEli');
-   let elementoEliminado = lista.splice(pos, 7)   
-   }
+   function eliminaRegistro(baseDatos){
+      let numEli = parseInt(prompt("Intrduzca el id a eliminar: " ))
+      
+      
+      
+      baseDatos = baseDatos.filter(contact => contact.id != numEli)
+      console.table(baseDatos);
+        /*
+         baseDatos.forEach(contacto => {
+            if (contacto.id == numEli); 
+            const baseDatos = baseDatos.splice(numEli,7)
+           console.log(baseDatos2)
+            
+             });
+        */
+      
+       
+}
+
+       function modificarRegistro(baseDatos){
+          baseDatos.forEach(contacto => {
+            document.write(contacto.id + "    "+ contacto.nombre + "    " + contacto.apellidos + "    " + contacto.telefono + "    " + contacto.ubicacion + "    " + contacto.ciudad + "    " + contacto.dirección);
+            document.write("<br>")
+           })
+
+           numEli = parseInt(prompt("Introduzca id a modificar: "));
+
+           for (x=0; x < baseDatos.length; x++){
+            if  (baseDatos[x].id == numEli){
+               baseDatos[x].nombre = prompt("Intrduzca Nombres: ", baseDatos[x].nombre) 
+               baseDatos[x].apellidos = prompt("Intrduzca Apellidos: ", baseDatos[x].apellidos) 
+               baseDatos[x].telefono = prompt("Intrduzca Telefono: ", baseDatos[x].telefono) 
+               baseDatos[x].ubicacion = prompt("Intrduzca Ubicación: ", baseDatos[x].ubicacion) 
+               baseDatos[x].ciudad = prompt("Intrduzca ciudad: ", baseDatos[x].ciudad ) 
+               baseDatos[x].dirección= prompt("Intrduzca dirección: ", baseDatos[x].dirección) 
+               
+            }
+            
+           }
+
+                             
+           
+            }
+            
+       
+       
+   
+   
    
 
+   // Menu Principal 
+  function mostrarMenu(){
+   
 
+   opcion = prompt("Introduzca opción")
 
+   if (opcion == "1"){
+      llenarLista();
+   }
+   else
+     if (opcion ==2){
+        imprmirEncabezado();
+        imprimirLista (baseDatos)
+        }
+      else
+         if (opcion == 4){
+            eliminaRegistro(); 
+         }
+         
+  }
+   
+       
+     
 
-    llenarLista()
-    console.log("imprime lista llena")
-    imprimirLista(lista)
+  function imprimeMenu(){
+   document.write("\"Menu Principal \"")
+   document.write("1.- Crear");
+   document.write("2.- Modificar");
+   document.write("3.- Modificar");
+   document.write("4.- Eliminar");
+   document.write("4.- salir"); 
+  }   
   
-   /* eliminaRegistro()*/
-    console.log("imprime lista restada")
-    imprimirLista(lista)
 
-/*
+  //  mostrarMenu();
+     llenarLista();
+     imprmirEncabezado();
+  imprimirLista (baseDatos)
+   console.table(baseDatos)
+ //   eliminaRegistro(baseDatos);
+     imprimirLista (baseDatos)
+    
+
+  /*  
+
+
 
     Ajusta las funciones de crear y eliminar un contacto para que puedan almacenar la siguiente información como objetos:
 id
