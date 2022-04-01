@@ -12,9 +12,13 @@ proximamente estará completo*/
 // Definir las variables y matrices
 let nroRegistro;
 let x;
+let sw;
+let resp;
+let MenuSi;
+let opcion;
 baseDatos = [];
 class Registro 
-          { constructor(id,nombre, apellidos,telefono,ubicacion,ciudad,dirección){
+          { constructor(id,nombre, apellidos,telefono,ubicacion,ciudad,dirección,order){
              this.id = id;
              this.nombre = nombre;
              this.apellidos = apellidos;
@@ -22,6 +26,7 @@ class Registro
              this.ubicacion = ubicacion;
              this.ciudad = ciudad;
              this.dirección = dirección;
+             this.order = order;
              }
              
           }
@@ -37,17 +42,20 @@ const llenarLista = function (){
        let ubicacion = prompt("Intrduzca Ubicación: ", "Ecuador" ) 
        let ciudad = prompt("Intrduzca ciudad: ", "Guayaquil" ) 
        let dirección= prompt("Intrduzca dirección: ", "Alborada") 
+       let order = Math.floor(Math.random()*10);
+      
        
-        let nuevo = new Registro(id,nombre, apellidos,telefono,ubicacion,ciudad,dirección)
-        baseDatos.push(nuevo)
-        alert(`${nuevo.nombre}  agregado satisfactoriamente`)
+        let nuevo = new Registro(id,nombre, apellidos,telefono,ubicacion,ciudad,dirección,order)
+        baseDatos.push(nuevo)=
+        alert(`${nuevo.nombre}  agregado satisfactoriamente`);
+        mostrarMenu();
         
        
          
            
           }
 
-          
+          console.table(baseDatos);
           }
           
              
@@ -65,6 +73,7 @@ const llenarLista = function (){
            } 
      
  
+    //  ordenar lista
     
 
 
@@ -72,10 +81,11 @@ const llenarLista = function (){
      function imprimirLista (baseDatos){
          baseDatos.forEach(contacto => {
          document.write("<br>")
-         document.write(contacto.id + "    "+ contacto.nombre + "    " + contacto.apellidos + "    " + contacto.telefono + "    " + contacto.ubicacion + "    " + contacto.ciudad + "    " + contacto.dirección);
+         document.write(contacto.id + "    "+ contacto.nombre + "    " + contacto.apellidos + "    " + contacto.telefono + "    " + contacto.ubicacion + "    " + contacto.ciudad + "    " + contacto.dirección + "  "+ contacto.order);
          document.write("<br>")
          
           });
+          mostrarMenu()
      
        }
 
@@ -83,21 +93,30 @@ const llenarLista = function (){
    function eliminaRegistro(baseDatos){
       let numEli = parseInt(prompt("Intrduzca el id a eliminar: " ))
       
+
+      for (x=0; x < baseDatos.length; x++){
+         if  (baseDatos[x].id == numEli){
+             sw = "s"
+            resp = prompt("Es este el nombre que desea eliminar? s/n: ", baseDatos[x].id) 
+           
+              {
+               baseDatos = baseDatos.filter(contact => contact.id != numEli)
+               alert("registro eliminado exitosamente");
+               mostrarMenu()
+              }
+              
+           }
+         
+        }
+      if (sw != "s"){
+         alert(" Registro no existe")
+
+      }
+
+      }
       
-      
-      baseDatos = baseDatos.filter(contact => contact.id != numEli)
-      console.table(baseDatos);
-        /*
-         baseDatos.forEach(contacto => {
-            if (contacto.id == numEli); 
-            const baseDatos = baseDatos.splice(numEli,7)
-           console.log(baseDatos2)
             
-             });
-        */
-      
-       
-}
+
 
        function modificarRegistro(baseDatos){
           baseDatos.forEach(contacto => {
@@ -115,6 +134,9 @@ const llenarLista = function (){
                baseDatos[x].ubicacion = prompt("Intrduzca Ubicación: ", baseDatos[x].ubicacion) 
                baseDatos[x].ciudad = prompt("Intrduzca ciudad: ", baseDatos[x].ciudad ) 
                baseDatos[x].dirección= prompt("Intrduzca dirección: ", baseDatos[x].dirección) 
+               alert("registro modificado exitosamente");
+               mostrarMenu()
+
                
             }
             
@@ -125,53 +147,90 @@ const llenarLista = function (){
             }
             
        
-       
+            function mostrarMenu(){
+              /* alert("\"Menu Principal \"")
+   
+               alert("1.- Crear");
+               document.write("<br>")
+               alert("2.- Imprimir lista de  contactos");
+               document.write("<br>")
+               alert("3.- Modificar");
+               document.write("<br>")
+               alert("4.- Eliminar");
+               document.write("<br>")
+               */
+               
+               let sw ="2"
+               do {
+                  opcion = parseInt(prompt(`
+                   Menu Principal \n
+                   1.- Crear. \n
+                   2.- Imprimir lista de contactos \n
+                   3.- Modificar \n
+                   4.- Eliminar\n
+                   Introduzca opción`))
+                   
+                   alert(opcion) 
+                 //  if (opcion != 1 || opcion != 2 || opcion !=  3 ||  opcion != 4 ){
+                    if(opcion <= 1 || opcion >= 4){
+
+                    
+                     alert("opcion invalida")
+                   }
+                     
+                   else
+                     sw = "1"
+               } while (sw == "1")
+               return(opcion)
+               alert("retornado")
+            }
+            
+           
    
    
    
 
    // Menu Principal 
-  function mostrarMenu(){
+  function opercionesMenuu(opcion){
+    MenuSi = "si"
+    while (MenuSi == "si")
+      mostrarMenu()
+   console.log(opcion)
+         if (opcion == "1"){
+           llenarLista();
+          }
+      else
+        if (opcion ==2){
+           imprmirEncabezado();
+           imprimirLista (baseDatos)
+           }
+         else
+            if (opcion == 3)
+               modificarRegistro(baseDatos)
+            else
+               if (opcion == 4){
+                eliminaRegistro(); 
+                 }
+               else
+                 salida()
+
+     let MenuSi = prompt("Desea continuar si/no: ")
+   
+   }
    
 
-   opcion = prompt("Introduzca opción")
-
-   if (opcion == "1"){
-      llenarLista();
-   }
-   else
-     if (opcion ==2){
-        imprmirEncabezado();
-        imprimirLista (baseDatos)
-        }
-      else
-         if (opcion == 4){
-            eliminaRegistro(); 
-         }
+   
          
-  }
+  
    
        
      
 
-  function imprimeMenu(){
-   document.write("\"Menu Principal \"")
-   document.write("1.- Crear");
-   document.write("2.- Modificar");
-   document.write("3.- Modificar");
-   document.write("4.- Eliminar");
-   document.write("4.- salir"); 
-  }   
+  
   
 
   //  mostrarMenu();
-     llenarLista();
-     imprmirEncabezado();
-  imprimirLista (baseDatos)
-   console.table(baseDatos)
- //   eliminaRegistro(baseDatos);
-     imprimirLista (baseDatos)
-    
+   mostrarMenu()
 
   /*  
 
